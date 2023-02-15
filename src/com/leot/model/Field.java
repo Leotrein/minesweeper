@@ -10,9 +10,9 @@ public class Field {
     private final Integer line;
     private final Integer column;
 
-    private Boolean mined;
-    private Boolean marked;
-    private Boolean open;
+    private boolean mined;
+    private boolean marked;
+    private boolean open;
 
     private List<Field> neighbors = new ArrayList<>();
 
@@ -29,15 +29,15 @@ public class Field {
         return column;
     }
 
-    public Boolean getMined() {
+    public Boolean isMined() {
         return mined;
     }
 
-    public Boolean getMarked() {
+    public Boolean isMarked() {
         return marked;
     }
 
-    public Boolean getOpen() {
+    public Boolean isOpen() {
         return open;
     }
 
@@ -80,16 +80,21 @@ public class Field {
         if (!open) {
             setMarked(!marked);
         }
+    }
 
+    public void undermine() {
+        if (!isMined()) {
+            setMined(true);
+        }
     }
 
     public Boolean openField() {
 
-        if (!open && !getMarked()) {
+        if (!open && !isMarked()) {
             setOpen(true);
             if (mined) {
                 throw new ExplosionException();
-            } else if (isSafety()) {
+            } else if (safety()) {
                 neighbors.forEach(n -> n.openField());
             }
             return true;
@@ -97,7 +102,7 @@ public class Field {
         return false;
     }
 
-    public Boolean isSafety() {
+    public Boolean safety() {
         return neighbors.stream().noneMatch(n -> n.mined);
     }
 
