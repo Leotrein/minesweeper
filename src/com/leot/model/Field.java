@@ -3,9 +3,10 @@ package com.leot.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leot.exception.ExplosionException;
+
 public class Field {
 
-    // atributes
     private final Integer line;
     private final Integer column;
 
@@ -15,13 +16,11 @@ public class Field {
 
     private List<Field> neighbors = new ArrayList<>();
 
-    // constructors
-    Field(Integer line, Integer column) {
+    public Field(Integer line, Integer column) {
         this.line = line;
         this.column = column;
     }
 
-    // getters
     public Integer getLine() {
         return line;
     }
@@ -46,7 +45,18 @@ public class Field {
         return neighbors;
     }
 
-    // methods
+    private void setMined(Boolean mined) {
+        this.mined = mined;
+    }
+
+    private void setMarked(Boolean marked) {
+        this.marked = marked;
+    }
+
+    private void setOpen(Boolean open) {
+        this.open = open;
+    }
+
     public Boolean addNeighbor(Field neighbor) {
 
         boolean lineDiff = this.getLine() != neighbor.line;
@@ -63,6 +73,32 @@ public class Field {
             return true;
         }
         return false;
+    }
+
+    public void toggleMarkup() {
+
+        if (!open) {
+            setMarked(!marked);
+        }
+
+    }
+
+    public Boolean openField() {
+
+        if (!open && !getMarked()) {
+            setOpen(true);
+            if (mined) {
+                throw new ExplosionException();
+            } else if (isSafety()) {
+                neighbors.forEach(n -> n.openField());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean isSafety() {
+        return neighbors.stream().noneMatch(n -> n.mined);
     }
 
 }
