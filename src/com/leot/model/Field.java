@@ -58,7 +58,6 @@ public class Field {
     }
 
     public void restart() {
-
         setMarked(false);
         setMined(false);
         setOpen(false);
@@ -83,7 +82,6 @@ public class Field {
     }
 
     public void toggleMarkup() {
-
         if (!isOpen()) {
             setMarked(!isMarked());
         }
@@ -100,7 +98,6 @@ public class Field {
     }
 
     public Boolean openField() {
-
         if (!open && !isMarked()) {
             setOpen(true);
             if (isMined()) {
@@ -129,7 +126,6 @@ public class Field {
     }
 
     public String toString() {
-
         if (isMarked()) {
             return "x";
         } else if (isOpen() && isMined()) {
