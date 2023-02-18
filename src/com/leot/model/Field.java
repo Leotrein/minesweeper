@@ -57,13 +57,20 @@ public class Field {
         this.open = open;
     }
 
+    public void restart() {
+
+        setMarked(false);
+        setMined(false);
+        setOpen(false);
+    }
+
     public Boolean addNeighbor(Field neighbor) {
 
-        boolean lineDiff = this.getLine() != neighbor.line;
-        boolean columnDiff = this.getColumn() != neighbor.column;
+        boolean lineDiff = this.getLine() != neighbor.getLine();
+        boolean columnDiff = this.getColumn() != neighbor.getColumn();
         boolean diagonal = lineDiff && columnDiff;
 
-        int diff = Math.abs(this.getLine() - neighbor.line) + Math.abs(this.getColumn() - neighbor.column);
+        int diff = Math.abs(this.getLine() - neighbor.getLine()) + Math.abs(this.getColumn() - neighbor.getColumn());
 
         if (diagonal && diff <= 2) {
             neighbors.add(neighbor);
@@ -77,8 +84,8 @@ public class Field {
 
     public void toggleMarkup() {
 
-        if (!open) {
-            setMarked(!marked);
+        if (!isOpen()) {
+            setMarked(!isMarked());
         }
     }
 
@@ -88,11 +95,15 @@ public class Field {
         }
     }
 
+    public Boolean safety() {
+        return neighbors.stream().noneMatch(n -> n.isMined());
+    }
+
     public Boolean openField() {
 
         if (!open && !isMarked()) {
             setOpen(true);
-            if (mined) {
+            if (isMined()) {
                 throw new ExplosionException();
             } else if (safety()) {
                 neighbors.forEach(n -> n.openField());
@@ -102,8 +113,33 @@ public class Field {
         return false;
     }
 
-    public Boolean safety() {
-        return neighbors.stream().noneMatch(n -> n.mined);
+    public Boolean completedGoal() {
+        boolean unraveled = !isMined() && isOpen();
+        boolean safeField = isMarked() && isMined();
+
+        if (unraveled || safeField) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public Long numberOfMines() {
+        return neighbors.stream().filter(n -> n.isMined()).count();
+    }
+
+    public String toString() {
+
+        if (isMarked()) {
+            return "x";
+        } else if (isOpen() && isMined()) {
+            return "*";
+        } else if (isOpen() && numberOfMines() > 0) {
+            return Long.toString(numberOfMines());
+        } else if (isOpen()) {
+            return " ";
+        }
+        return "?";
     }
 
 }
