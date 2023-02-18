@@ -50,11 +50,19 @@ public class Board {
     }
 
     private void generateFields() {
-
+        for (int i = 0; i < line; i++) {
+            for (int j = 0; j < column; j++) {
+                fields.add(new Field(i, j));
+            }
+        }
     }
 
     private void associateNeighbors() {
-
+        for (Field f1 : fields) {
+            for (Field f2 : fields) {
+                f1.addNeighbor(f2);
+            }
+        }
     }
 
     private void spawnMines() {

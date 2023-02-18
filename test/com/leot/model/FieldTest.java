@@ -15,14 +15,12 @@ public class FieldTest {
 
 	@Test
 	public void neighborDiagonal() {
-
 		assertTrue(field.addNeighbor(new Field(4, 4)));
 		assertFalse(field.addNeighbor(new Field(5, 5)));
 	}
 
 	@Test
 	public void neighborNotDiagonal() {
-
 		assertTrue(field.addNeighbor(new Field(3, 2)));
 		assertTrue(field.addNeighbor(new Field(4, 3)));
 		assertFalse(field.addNeighbor(new Field(5, 3)));
@@ -35,7 +33,6 @@ public class FieldTest {
 
 	@Test
 	public void testToggleMarkup() {
-
 		field.toggleMarkup();
 		assertTrue(field.isMarked());
 
@@ -50,14 +47,12 @@ public class FieldTest {
 
 	@Test
 	public void openMarckedField() {
-
 		field.toggleMarkup();
 		assertFalse(field.openField());
 	}
 
 	@Test
 	public void openMineAndMarckeddField() {
-
 		field.undermine();
 		field.toggleMarkup();
 		assertFalse(field.openField());
@@ -65,7 +60,6 @@ public class FieldTest {
 
 	@Test
 	public void openMinedField() {
-
 		field.undermine();
 		assertThrows(ExplosionException.class, () -> {
 			field.openField();
@@ -74,7 +68,6 @@ public class FieldTest {
 
 	@Test
 	public void openFieldWithNeighbor1() {
-
 		Field f22 = new Field(2, 2);
 		Field f11 = new Field(1, 1);
 
@@ -89,7 +82,6 @@ public class FieldTest {
 
 	@Test
 	public void openFieldWithNeighbor2() {
-
 		Field f22 = new Field(2, 2);
 		Field f11 = new Field(1, 1);
 		Field f12 = new Field(1, 2);
@@ -108,7 +100,6 @@ public class FieldTest {
 
 	@Test
 	public void goalCompleted1() {
-
 		field.undermine();
 		field.toggleMarkup();
 
@@ -120,9 +111,7 @@ public class FieldTest {
 
 	@Test
 	public void goalCompleted2() {
-
 		field.openField();
-
 		assertTrue(field.completedGoal());
 
 		field.undermine();
@@ -131,7 +120,6 @@ public class FieldTest {
 
 	@Test
 	public void numberOfMines() {
-
 		Field f34 = new Field(3, 4);
 		Field f32 = new Field(3, 2);
 		Field f23 = new Field(2, 3);
@@ -151,14 +139,12 @@ public class FieldTest {
 
 	@Test
 	public void toString1() {
-
 		field.toggleMarkup();
 		assertEquals("x", field.toString());
 	}
 
 	@Test
 	public void toStrin2() {
-
 		Field f34 = new Field(3, 4);
 		Field f22 = new Field(2, 2);
 
@@ -174,7 +160,6 @@ public class FieldTest {
 
 	@Test
 	public void toString3() {
-
 		Field f34 = new Field(3, 4);
 		field.addNeighbor(f34);
 
