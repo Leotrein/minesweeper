@@ -17,42 +17,39 @@ public class Board {
         this.column = column;
         this.mines = mines;
 
-        generateFields();
-        associateNeighbors();
-        spawnMines();
+        init();
     }
 
     public Integer getLine() {
         return line;
     }
 
-    private void setLine(Integer line) {
-        this.line = line;
-    }
-
     public Integer getColumn() {
         return column;
-    }
-
-    private void setColumn(Integer column) {
-        this.column = column;
     }
 
     public Integer getMines() {
         return mines;
     }
 
-    private void setMines(Integer mines) {
-        this.mines = mines;
-    }
-
     public List<Field> getFields() {
         return fields;
     }
 
+    private void init() {
+        generateFields();
+        associateNeighbors();
+        spawnMines();
+    }
+
+    public void restart() {
+        fields.stream().forEach(f -> f.restart());
+        spawnMines();
+    }
+
     private void generateFields() {
-        for (int i = 0; i < line; i++) {
-            for (int j = 0; j < column; j++) {
+        for (int i = 1; i <= line; i++) {
+            for (int j = 1; j <= column; j++) {
                 fields.add(new Field(i, j));
             }
         }
@@ -75,6 +72,10 @@ public class Board {
             fields.get(randomNum).undermine();
             mines = (int) fields.stream().filter(f -> f.isMined()).count();
         } while (mines < getMines());
+    }
+
+    public void victory() {
+        fields.stream().allMatch(f -> f.completedGoal());
     }
 
 }
