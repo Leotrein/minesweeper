@@ -88,8 +88,8 @@ public class Board {
                 .ifPresent(f -> f.toggleMarkup());
     }
 
-    public void victory() {
-        fields.stream().allMatch(f -> f.completedGoal());
+    public boolean victory() {
+        return fields.stream().allMatch(f -> f.completedGoal());
     }
 
     public String toString() {
