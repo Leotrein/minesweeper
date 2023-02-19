@@ -2,6 +2,7 @@ package com.leot.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Board {
 
@@ -66,7 +67,14 @@ public class Board {
     }
 
     private void spawnMines() {
+        int mines = 0;
+        do {
+            Random random = new Random();
+            int randomNum = random.nextInt(getColumn() * getLine());
 
+            fields.get(randomNum).undermine();
+            mines = (int) fields.stream().filter(f -> f.isMined()).count();
+        } while (mines < getMines());
     }
 
 }

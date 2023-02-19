@@ -12,4 +12,9 @@ class BoardTest {
 	public void generateFields() {
 		assertEquals(board.getColumn() * board.getLine(), board.getFields().stream().count());
 	}
+
+	@Test
+	public void spawnMines() {
+		assertEquals(25, board.getFields().stream().filter(f -> f.isMined()).count());
+	}
 }
