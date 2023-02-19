@@ -118,7 +118,6 @@ public class Field {
             return true;
         }
         return false;
-
     }
 
     public Long numberOfMines() {
