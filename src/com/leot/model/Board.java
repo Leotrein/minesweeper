@@ -74,8 +74,39 @@ public class Board {
         } while (mines < getMines());
     }
 
+    public void open(int line, int column) {
+        fields.parallelStream()
+                .filter(f -> f.getColumn() == column && f.getLine() == line)
+                .findFirst()
+                .ifPresent(f -> f.openField());
+    }
+
+    public void toggleMarkup(int line, int column) {
+        fields.parallelStream()
+                .filter(f -> f.getColumn() == column && f.getLine() == line)
+                .findFirst()
+                .ifPresent(f -> f.toggleMarkup());
+    }
+
     public void victory() {
         fields.stream().allMatch(f -> f.completedGoal());
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        int x = 0;
+        for (int i = 0; i < getLine(); i++) {
+            for (int j = 0; j < getColumn(); j++) {
+                sb.append(" ");
+                sb.append(fields.get(x));
+                sb.append(" ");
+                x++;
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 
 }

@@ -36,4 +36,16 @@ class BoardTest {
 		List<Field> minesAfter = board.getFields().stream().filter(f -> f.isMined()).collect(Collectors.toList());
 		assertFalse(minesBefore.containsAll(minesAfter));
 	}
+
+	@Test
+	public void open() {
+		board.open(1, 1);
+		board.getFields().stream().filter(f -> f.getColumn() == 1 && f.getLine() == 1).forEach(f -> f.isOpen());
+	}
+
+	@Test
+	public void toggleMarkup() {
+		board.toggleMarkup(1, 1);
+		board.getFields().stream().filter(f -> f.getColumn() == 1 && f.getLine() == 1).forEach(f -> f.isMarked());
+	}
 }
