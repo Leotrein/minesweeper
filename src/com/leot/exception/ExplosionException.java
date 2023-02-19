@@ -1,5 +1,6 @@
 package com.leot.exception;
 
+@SuppressWarnings("all")
 public class ExplosionException extends RuntimeException {
 
     public ExplosionException() {
