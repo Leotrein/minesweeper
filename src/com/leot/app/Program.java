@@ -12,7 +12,7 @@ public class Program {
 		 * bombs in the Board() constructor.
 		 */
 
-		Board board = new Board(6, 6, 3);
+		Board board = new Board(10, 10, 25);
 		new boardConsole(board);
 
 	}

@@ -45,8 +45,10 @@ public class boardConsole {
 
     private void gameLoop() {
         try {
+            System.out.println("\nMinesweeper game\n");
             System.out.println(
-                    "\nOBS: \"*\" - mine, \"?\" - closed, \"x\" - marked, \"-\" - there is no mine nearby (empty)");
+                    "OBS: \"*\" - mine, \"?\" - closed, \"x\" - marked, \"-\" - there is no mine nearby (empty)");
+            System.out.println("     the numbers on the top right are the indices (x - line, y - column)");
             System.out.println("More: Enter \"exit\" to exit the game at any time");
             while (!board.victory()) {
                 printBoard();

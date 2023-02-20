@@ -117,7 +117,7 @@ public class Board {
                 sb.append(" ");
                 x++;
             }
-            sb.append("\n");
+            sb.append("  " + (i + 1) + "\n");
         }
 
         return sb.toString();
