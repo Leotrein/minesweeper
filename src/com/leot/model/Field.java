@@ -45,15 +45,15 @@ public class Field {
         return neighbors;
     }
 
-    private void setMined(Boolean mined) {
+    void setMined(Boolean mined) {
         this.mined = mined;
     }
 
-    private void setMarked(Boolean marked) {
+    void setMarked(Boolean marked) {
         this.marked = marked;
     }
 
-    private void setOpen(Boolean open) {
+    void setOpen(Boolean open) {
         this.open = open;
     }
 
@@ -132,7 +132,7 @@ public class Field {
         } else if (isOpen() && numberOfMines() > 0) {
             return Long.toString(numberOfMines());
         } else if (isOpen()) {
-            return " ";
+            return "-";
         }
         return "?";
     }

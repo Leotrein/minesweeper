@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.leot.exception.ExplosionException;
+
 public class Board {
 
     private Integer line;
@@ -75,10 +77,15 @@ public class Board {
     }
 
     public void open(int line, int column) {
-        fields.parallelStream()
-                .filter(f -> f.getColumn() == column && f.getLine() == line)
-                .findFirst()
-                .ifPresent(f -> f.openField());
+        try {
+            fields.parallelStream()
+                    .filter(f -> f.getColumn() == column && f.getLine() == line)
+                    .findFirst()
+                    .ifPresent(f -> f.openField());
+        } catch (ExplosionException e) {
+            fields.stream().forEach(f -> f.setOpen(true));
+            throw e;
+        }
     }
 
     public void toggleMarkup(int line, int column) {
@@ -94,6 +101,13 @@ public class Board {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < getColumn(); i++) {
+            sb.append(" ");
+            sb.append(i + 1);
+            sb.append(" ");
+        }
+        sb.append("\n\n");
 
         int x = 0;
         for (int i = 0; i < getLine(); i++) {

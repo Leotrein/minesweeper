@@ -7,8 +7,12 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		Board board = new Board(6, 6, 6);
+		/*
+		 * to play just set the size of the board (line * column) and the amount of
+		 * bombs in the Board() constructor.
+		 */
 
+		Board board = new Board(6, 6, 3);
 		new boardConsole(board);
 
 	}
