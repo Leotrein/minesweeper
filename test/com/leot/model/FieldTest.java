@@ -164,7 +164,7 @@ public class FieldTest {
 		field.addNeighbor(f34);
 
 		field.openField();
-		assertEquals(" ", field.toString());
+		assertEquals("-", field.toString());
 	}
 
 	@Test
